@@ -1,0 +1,36 @@
+{
+    "workbench.colorTheme": "Adapta Nokto",
+
+    "window.zoomLevel": 1.4,
+
+    "editor.fontFamily": "'Fira Mono', 'DejaVu Sans Mono'",
+    "editor.fontSize": 13,
+    "editor.cursorStyle": "underline",
+    "editor.matchBrackets": false,
+    "editor.minimap.enabled": false,
+    "editor.renderLineHighlight": "none",
+
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+
+    "files.autoSave": "afterDelay",
+    "files.trimTrailingWhitespace": true,
+
+
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.executorMap": {
+        "cpp": "cd $dir && g++ -std=c++11 $fileName -o $fileNameWithoutExt && time $dir$fileNameWithoutExt < input.txt > output.txt && rm $dir$fileNameWithoutExt"
+
+    },
+
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+    "C_Cpp.autoAddFileAssociations":  true,
+    "C_Cpp.default.includePath":  [
+        "/usr/include",
+        "/usr/local/include"
+    ],
+    "C_Cpp.default.intelliSenseMode": "gcc-x64",
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.cppStandard": "c++11"
+}

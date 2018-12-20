@@ -1,0 +1,222 @@
+{
+	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"Codeforces template": {
+		"prefix": "cft",
+	 	"body": [
+			"#include <iostream>",
+			"#include <vector>",
+			"#include <cmath>",
+			"#include <set>",
+			"#include <map>",
+			"#include <unordered_map>",
+			"#include <unordered_set>",
+			"#include <algorithm>",
+			"#include <queue>",
+			"#include <deque>",
+			"",
+			"#define mp make_pair",
+			"#define pb push_back",
+			"#define IOS ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);",
+			"#define endl '\\n'",
+			"#define int long long",
+
+			"using namespace std;",
+			"",
+			"typedef pair<int, int> ii;",
+			"typedef vector<int> vi;",
+
+			"int32_t main() {",
+			"    IOS;",
+			"    int n, m, k;",
+			"    return 0;",
+			"}"
+	 	],
+	 	"description": "Codeforces template"
+	},
+
+	"Sparse Table": {
+		"prefix": "sparse",
+	 	"body": [
+			"struct ST {",
+			"    vector<int> st[10000], lg;",
+			"",
+			"    ST(vector<int> v) {",
+			"        lg.assign(v.size() + 1, 0);",
+			"        lg[2] = 1;",
+			"        for(int i = 3; i <= v.size(); i++)",
+			"            lg[i] = lg[i/2] + 1;",
+			"        ",
+			"        for(int f = 0; f <= lg[v.size()]; f++) {",
+			"            st[f].assign(v.size(), 0);",
+			"            for(int i = 0; i + (1<<f) <= v.size(); i++)",
+			"                if(f == 0)  st[f][i] = v[i];",
+			"                else        st[f][i] = max(st[f-1][i],  st[f-1][i + (1<<f)/2]); // OR min here",
+			"        }",
+			"    }",
+			"    int get_m(int i, int j) {",
+			"        int f = lg[j - i + 1];",
+			"        return max(st[f][i], st[f][j - (1<<f) + 1]); // OR min here",
+			"    }",
+			"};",
+			"",
+	 	],
+	 	"description": "Sparse table"
+	},
+
+	"disjoint sets": {
+		"prefix": "dsets",
+	 	"body": [
+			"",
+			"struct disjoint_sets {",
+			"  vector<int> roots;",
+			"  vector<int> heights;",
+			"",
+			"  disjoint_sets(int in_size) {",
+			"    for (int i = 0; i < in_size; i++) roots.push_back(i);",
+			"    heights.assign(in_size, 0);",
+			"  }",
+			"",
+			"  int find(int idx) {",
+			"    return (idx == roots[idx]) ? idx : (roots[idx] = find(roots[idx]));",
+			"  }",
+			"",
+			"  void join(int idx1, int idx2) {",
+			"    int r1 = find(idx1);",
+			"    int r2 = find(idx2);",
+			"",
+			"    if (r1 == r2) return;",
+			"    if (heights[r1] >= heights[r2])",
+			"      roots[r2] = r1;",
+			"    else",
+			"      roots[r1] = r2;",
+			"",
+			"    if (heights[r1] == heights[r2]) heights[r1]++;",
+			"  }",
+			"};",
+			"",
+	 	],
+	 	"description": "disjoint sets"
+	},
+
+	"segment tree": {
+		"prefix": "segment",
+	 	"body": [
+			"",
+			"struct segment_tree {",
+			"    vector<int> st, lz;",
+			"    int orig_size;",
+			"    int rv;",
+			"",
+			"    segment_tree(const vector<int>& in_arr) {",
+			"        orig_size = in_arr.size();",
+			"        st.assign(in_arr.size() * 4, 0);",
+			"        lz.assign(in_arr.size() * 4, 0);",
+			"        build(in_arr, 0, 0, in_arr.size() - 1);",
+			"    }",
+			"",
+			"    int op(int a, int b) {",
+			"        // for MIN tree",
+			"        //rv = 10000; // max possible value",
+			"        //return min(a, b);",
+			"",
+			"        // for MAX tree",
+			"        rv = -10000; //min possible value",
+			"        return max(a, b);",
+			"        ",
+			"        // for SUM tree",
+			"        //rv = 0; // 0 value",
+			"        //return a + b;",
+			"    }",
+			"    void build(const vector<int>& in_arr, int idx, int seg_start, int seg_end) {",
+			"        if(seg_start == seg_end) {",
+			"            st[idx] = in_arr[seg_start];",
+			"        } else {",
+			"            build(in_arr, idx * 2 + 1, seg_start, (seg_end + seg_start)/2);",
+			"            build(in_arr, idx * 2 + 2, (seg_end + seg_start)/2 + 1, seg_end);",
+			"            st[idx] = op(st[idx * 2 + 1],  st[idx * 2 + 2]);",
+			"        }",
+			"    }",
+			"",
+			"    int req(int start, int end) {",
+			"        return req(start, end, 0, 0, orig_size - 1);",
+			"    }",
+			"",
+			"    int req(int start, int end, int idx, int seg_start, int seg_end) {",
+			"        if(lz[idx]) {",
+			"            st[idx] += (seg_end - seg_start + 1) * lz[idx];",
+			"            lz[idx*2 + 1] += lz[idx];",
+			"            lz[idx*2 + 2] += lz[idx];",
+			"            lz[idx] = 0;",
+			"        }",
+			"",
+			"        if(seg_start > end || seg_end < start) {",
+			"            return rv;",
+			"        } else if(seg_start >= start && seg_end <= end) {",
+			"            return st[idx];",
+			"        } else {",
+			"            return op(req(start, end, idx * 2 + 1, seg_start, (seg_end + seg_start)/2),",
+			"                    req(start, end, idx * 2 + 2, (seg_end + seg_start)/2 + 1, seg_end));",
+			"        }",
+			"    }",
+			"",
+			"    void add(int idx, int value) {",
+			"        add(idx, idx, value, 0, 0, orig_size - 1);",
+			"    }",
+			"",
+			"    void add(int start, int end, int value) {",
+			"        add(start, end, value, 0, 0, orig_size - 1);",
+			"    }",
+			"",
+			"    void add(int start, int end, int value, int idx, int seg_start, int seg_end) {",
+			"        if(seg_start > end || seg_end < start) {",
+			"            return;",
+			"        } else if(seg_start >= start && seg_end <= end) {",
+			"            st[idx] += (seg_end - seg_start + 1) * value;",
+			"            lz[idx*2 + 1] += value;",
+			"            lz[idx*2 + 2] += value;",
+			"        } else {",
+			"            add(start, end, value, idx * 2 + 1, seg_start, (seg_end + seg_start)/2);",
+			"            add(start, end, value, idx * 2 + 2, (seg_end + seg_start)/2 + 1, seg_end);",
+			"            st[idx] = op(st[idx*2 + 1], st[idx*2 +2]);",
+			"        }",
+			"    }",
+			"};",
+			"",
+	 	],
+	 	"description": "segment tree"
+	},
+
+
+	"All vector items": {
+		"prefix": "allin",
+	 	"body": [
+	 		"$1.begin(), $1.end()"
+	 	],
+	 	"description": "get vector iterators"
+	},
+
+	"For loop": {
+		"prefix": "rep",
+	 	"body": [
+	 		"for(int $1 = 0; $1 < $2; ++$1) {",
+			 "}"
+	 	],
+	 	"description": "for loop"
+	},
+
+
+
+}
