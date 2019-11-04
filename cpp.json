@@ -33,15 +33,16 @@
 			"#define pb push_back",
 			"#define IOS ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);",
 			"#define endl '\\n'",
-			"#define int64 long long",
-			"#define uint64 unsigned long long",
+			"#define int long long",
+			"#define uint unsigned long long",
+			"#define vi vector<int>",
+			"#define ii pair<int,int>",
+			"#define vvi vector<vector<int>>",
 			"using namespace std;",
 			"",
-			"int main() {",
+			"int32_t main() {",
 			"    IOS;",
-			"    int64 n, m, k;",
-			"    vector<int64> a,v;",
-			"    string s;",
+			"    int n, m, k;",
 			"    return 0;",
 			"}"
 		],
@@ -200,6 +201,28 @@
 		"prefix": "allin",
 		"body": [
 			"$1.begin(), $1.end()"
+		],
+		"description": "get vector iterators"
+	},
+	"Binomial coefficients": {
+		"prefix": "binomialcoeff",
+		"body": [
+			"int binomialCoeff(int n, int k)",
+			"{",
+			"    int C[k+1];",
+			"    memset(C, 0, sizeof(C));",
+			"",
+			"    C[0] = 1;  // nC0 is 1",
+			"",
+			"    for (int i = 1; i <= n; i++)",
+			"    {",
+			"        // Compute next row of pascal triangle using",
+			"        // the previous row",
+			"        for (int j = min(i, k); j > 0; j--)",
+			"            C[j] = C[j] + C[j-1];",
+			"    }",
+			"    return C[k];",
+			"}"
 		],
 		"description": "get vector iterators"
 	},
