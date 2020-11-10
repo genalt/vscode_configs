@@ -12,18 +12,28 @@
   "explorer.confirmDelete": false,
 
   "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 2000,
   "files.trimTrailingWhitespace": true,
 
+  "go.buildOnSave": true,
+  "go.lintOnSave": true,
+  "go.vetOnSave": true,
+  "go.buildFlags": [],
+  "go.lintFlags": [],
+  "go.vetFlags": [],
+  "go.useCodeSnippetsOnFunctionSuggest": false,
+  "go.formatOnSave": true,
+  "go.formatTool": "goreturns"
 
   "code-runner.clearPreviousOutput": true,
   "code-runner.runInTerminal": true,
   "code-runner.executorMap": {
-    "cpp": "bash compile.sh $relativeFile"
+    "cpp": "cd $dir && g++ -std=c++14 $fileName -o $fileNameWithoutExt && time $dir$fileNameWithoutExt < input.txt > output.txt && rm $dir$fileNameWithoutExt",
+    "go": "go run $fileName < in.txt > out.txt"
   },
   "code-runner.saveFileBeforeRun": true,
   "code-runner.preserveFocus": false,
   "code-runner.ignoreSelection": true,
   "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
   "C_Cpp.autoAddFileAssociations": true,
-  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
 }
