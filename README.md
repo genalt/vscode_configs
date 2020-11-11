@@ -6,15 +6,27 @@
   - Code Runner
   - Linux Themes for VS Code (Arc Dark)
   - Trailing Spaces
+  - Go
+  - GoCritic
 
 # User setting:
-- Copy settings.json to config dir
+- Linux: 
     ```bash 
     cp settings.json ~/.config/Code/User/settings.json
     ```
+
+- macOS:
+    ```bash
+    cp settings.json ~/Library/ApplicationSupport/Code/User/settings.json
+    ```
     
-# Code snippets (for CPP only):
-- Copy cpp.json to config dir
+# Code snippets:
+- Linux:
     ```bash 
     cp cpp.json ~/.config/Code/User/snippets/cpp.json
+    ```
+
+- macOS:
+    ```bash
+    cp cpp.json ~/Library/ApplicationSupport/Code/User/snippets/cpp.json
     ```

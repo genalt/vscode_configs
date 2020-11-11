@@ -1,8 +1,8 @@
 {
-  "window.zoomLevel": 1.4,
+  "window.zoomLevel": 1.1,
 
   "editor.fontFamily": "'Source Code Pro', 'Fira Mono', 'DejaVu Sans Mono'",
-  "editor.fontSize": 14,
+  "editor.fontSize": 12,
   "editor.cursorStyle": "underline",
   "editor.matchBrackets": "never",
   "editor.minimap.enabled": false,
@@ -15,25 +15,33 @@
   "files.autoSaveDelay": 2000,
   "files.trimTrailingWhitespace": true,
 
-  "go.buildOnSave": true,
-  "go.lintOnSave": true,
-  "go.vetOnSave": true,
-  "go.buildFlags": [],
-  "go.lintFlags": [],
-  "go.vetFlags": [],
-  "go.useCodeSnippetsOnFunctionSuggest": false,
-  "go.formatOnSave": true,
-  "go.formatTool": "goreturns"
+  "go.buildOnSave": "package",
+  "go.lintOnSave": "package",
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [ "--fast", "--config=${workspaceFolder}/scripts/golangci.yml"],
+  "go.useLanguageServer": true,
+  "go.formatTool": "goimports",
+  "[go]":  {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+
+  },
+  "workbench.colorTheme": "Arc Dark",
+  "go.vetOnSave": "package",
+  "go.autocompleteUnimportedPackages": true,
 
   "code-runner.clearPreviousOutput": true,
   "code-runner.runInTerminal": true,
   "code-runner.executorMap": {
-    "cpp": "cd $dir && g++ -std=c++14 $fileName -o $fileNameWithoutExt && time $dir$fileNameWithoutExt < input.txt > output.txt && rm $dir$fileNameWithoutExt",
-    "go": "go run $fileName < in.txt > out.txt"
+    "cpp": "cd $dir && g++ -std=c++14 $fileName -o $dir$fileNameWithoutExt && time $dir$fileNameWithoutExt < input.txt > output.txt && rm $fileNameWithoutExt",
+    "go": "cd $dir && go run $fileName < input.txt > output.txt"
   },
   "code-runner.saveFileBeforeRun": true,
   "code-runner.preserveFocus": false,
   "code-runner.ignoreSelection": true,
   "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
   "C_Cpp.autoAddFileAssociations": true,
+  "terminal.integrated.shell.osx": "/bin/zsh"
 }
